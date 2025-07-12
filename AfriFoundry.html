@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AfriFoundry</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f5f0e6;
+      color: #222;
+    }
+    .top-bar {
+      background-color: #0b2f2a;
+      color: white;
+      padding: 20px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .top-bar h1 {
+      font-size: 32px;
+      margin: 0;
+    }
+    .menu-icon {
+      cursor: pointer;
+    }
+    .menu-icon .bar {
+      width: 25px;
+      height: 3px;
+      background-color: white;
+      margin: 4px 0;
+    }
+    .side-menu {
+      display: none;
+      position: absolute;
+      top: 70px;
+      right: 30px;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      padding: 10px 0;
+      z-index: 999;
+      min-width: 200px;
+    }
+    .side-menu a {
+      display: block;
+      padding: 10px 20px;
+      color: #0b2f2a;
+      font-weight: bold;
+      text-decoration: none;
+      border-bottom: 1px solid #eee;
+    }
+    .side-menu a:last-child {
+      border-bottom: none;
+    }
+    .side-menu a:hover {
+      background-color: #f0f0f0;
+    }
+    .hero {
+      text-align: center;
+      padding: 4rem 2rem 2rem;
+      background-color: #fff0e1;
+    }
+    .hero h1 {
+      font-size: 3rem;
+      font-weight: 700;
+      color:  #ff5722;
+    }
+    .hero h2 {
+      font-size: 1.5rem;
+      color: #374151;
+      margin: 1rem 0;
+    }
+    .hero p {
+      font-size: 1rem;
+      color: #4b5563;
+      max-width: 700px;
+      margin: 0 auto 2rem;
+    }
+    .features {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+      margin: 2rem auto;
+    }
+    .feature {
+      text-align: center;
+      background: #ff5722;
+      color: white;
+      padding: 1.2rem;
+      border-radius: 1rem;
+      width: 120px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    }
+    .feature i {
+      font-size: 1.5rem;
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+    .cta {
+      text-align: center;
+      margin-top: 2rem;
+    }
+    .cta button {
+      background: darkorange;
+      padding: 0.8rem 2rem;
+      font-size: 1rem;
+      border: none;
+      border-radius: 999px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      color: white;
+      font-weight: bold;
+    }
+    .welcome-zone {
+      max-width: 900px;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: white;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(5px);
+      text-align: justify;
+    }
+    .slideshow-box {
+      position: relative;
+      width: 100%;
+      height: 400px;
+      overflow: hidden;
+    }
+    .slide {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+    }
+    .slide.active {
+      opacity: 1;
+    }
+    .slideshow-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+      font-size: 2rem;
+      background-color: rgba(0, 0, 0, 0.5);
+      padding: 15px 25px;
+      border-radius: 10px;
+      text-align: center;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+    }
+    .slideshow-text.active {
+      opacity: 1;
+    }
+    section {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 20px;
+      background: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    }
+  
+     a.btn {
+      display: inline-block;
+      background-color: #8B0000;
+      color: white;
+      padding: 12px 20px;
+      margin: 10px 10px 0 0;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+    }
+    a.btn:hover {
+      background-color: #a30000;
+    }
+      h2 {
+      font-size: 28px;
+      color: #005f4f;
+      margin-bottom: 10px;
+    }
+    h3 {
+      color: #8B0000;
+    }
+    ol, ul {
+      padding-left: 20px;
+      line-height: 1.6;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 12px;
+      text-align: left;
+    }
+    th {
+      background-color: #6EC4C8;
+      color: white;
+    }
+       form {
+      display: flex;
+      flex-direction: column;
+    }
+    input, textarea, button {
+      margin-top: 10px;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 16px;
+    }
+    button[type="submit"] {
+      background-color: #6EC4C8;
+      color: white;
+      border: none;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    button[type="submit"]:hover {
+      background-color: #56abb0;
+    }
+    footer {
+      background-color: #1f2a44;
+      color: #f1f1f1;
+      text-align: center;
+      padding: 30px 20px;
+      margin-top: 40px;
+    }
+    footer p {
+      margin: 8px 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="top-bar">
+    <h1 style="color: #6EC4C8; font-size: 48px;">AfriFoundry</h1>
+    <div class="menu-icon" onclick="toggleMenu()">
+      <div class="bar"></div>
+      <div class="bar"></div>
+      <div class="bar"></div>
+    </div>
+  </div>
+  <div id="sideMenu" class="side-menu">
+    <a href="#Home">Home</a>
+    <a href="#How">How it works</a>
+    <a href="#Join">Join us</a>
+    <a href="#About">About</a>
+    <a href="#Discover">Discover</a>
+    <a href="#Contact">Contact</a>
+  </div>
+  <div class="container">
+    <section class="hero">
+     <h1>AfriFoundry</h1>
+    <h2>Where African Ideas Are Forged Into Real‑World Breakthroughs</h2>
+    <p>
+     Turning local creativity into tested impact — with AI guidance, ethical safeguards, and partner‑supported pilots.
+    </p>
+   
+    <div class="cta">
+          <button><i>⚙️</i>Join us</button>
+          <button><i>🎵</i>About</button>
+      <button>Explore Innovation Journeys</button>
+      <button>Submit your idea</button>
+    s
+     
+    </div></section>
+    <section class="slideshow">
+       <div class="slideshow-box">
+        <img src="pic8.jpg" class="slide" alt="Slide 1">
+        <img src="pic3.jpg" class="slide" alt="Slide 2">
+        <img src="pic2.jpg" class="slide" alt="Slide 3">
+        <img src="pic5.jpg" class="slide" alt="Slide 4">
+        <img src="pic4.jpg" class="slide" alt="Slide 5">
+
+        <div class="slideshow-text active-text"><h2 class="animated-text">Forging Africa’s Health Innovations</h2></div>
+        <div class="slideshow-text">Empowering Young African Innovators</div>
+        <div class="slideshow-text">Shaping the Future of Healthcare</div>
+        <div class="slideshow-text">The Future Is Now</div>
+        <div class="slideshow-text">Welcome and Feel at Home</div>
+      </div>
+    </section>
+    <div class="welcome-zone">
+       <h1 class="afrifoundry-heading" style="font-size:30px;">Welcome to <span style="color:#2a7f62;">AfriFoundry</span></h1>
+    <hr>
+    <p>
+      At AfriFoundry, we believe Africa’s greatest healthcare breakthroughs are waiting in the minds of its boldest young innovators. Every day, students, dreamers, and frontline workers witness real problems and imagine solutions. But ideas alone aren’t enough. That’s why we exist: to guide you from spark to impact. We help you think deeper, build smarter, and heal stronger — transforming raw visions into real-world innovations that save lives. Whether you’re solving maternal mortality, reimagining diagnostics, or building tech for mental wellness, AfriFoundry is where your journey begins. This is more than innovation. This is legacy. This is <span style="color: #8B0000; font-weight: bold; font-size: 1.2em;">AfriFoundry</span>.
+    </p>
+    </div>
+    <div class="welcome-zone" id="Home" style="background-color: powderblue;">
+       <h1 class="afrifoundry-heading" style="font-size: 30px;">Home</h1>
+    <hr>
+    <h2 style="text-align: center;"><i>Africa's brightest ideas, built into real-world breakthroughs.</i></h2>
+    <img src="pic7.jpg" width="100%" height="100%" alt="Innovation Image">
+    <p>
+      AfriFoundry empowers students, researchers, and grassroots innovators to move beyond brainstorming and start building, testing, and scaling real solutions.
+    </p>
+    <div class="button-group">
+      <button class="cta-btn" style="background-color: darkorange;">Submit your idea</button>
+      <button class="cta-btn" style="background-color: darkorange;">Explore projects</button>
+    </div>
+    </div>
+    <div class="welcome-zone">
+      <h1 class="afrifoundry-heading" style="font-size: 30px;">The Problem We Solve</h1>
+    <hr>
+    <p style="color: orangered;">
+       Across Africa, thousands of students, health workers, and grassroots innovators create powerful ideas every day. Yet most remain stuck in notebooks because teams lack;
+    </p>
+    <ul>
+      <li>Field validation & real‑world testing</li>
+      <li>Ethical review tools</li>
+      <li>AI support & mentorship</li>
+      <li>Partner networks to help them scale</li>
+    </ul>
+    <img src="pic50.jpg" width="100%" height="100%" alt="Problem Image">
+    <hr>
+    <p style="font-size: 20px; color: hotpink;"><i>AfriFoundry bridges this last mile: With a trusted platform, mentors, and tools tailored to African realities.</i></p>
+    </div>
+    <div class="welcome-zone" style="background-color: bisque;">
+       <h1 class="afrifoundry-heading" style="font-size: 25px; white-space: nowrap;">The Need For us</h1>
+    <hr>
+    <p>Across Africa, bright minds see problems every day — in clinics, classrooms, and communities. 
+       Yet too many great ideas stay trapped in notebooks because of:<br>
+       <ol>
+         <li>Lack of validation </li><br>
+         <li>No ethical guidance </li><br>
+         <li>Few pathways to partners and funding </li>
+
+       </ol><br>
+       <img src="pic26.jpg" width="100%" height="100%" alt="Problem Image">
+
+       <p><i>AfriFoundry bridges that gap — giving every innovator a real chance to build 
+              impact. </i></p><hr>
+      </p>
+    <p><em>AfriFoundry | Stakeholder Pitch Deck | July 2025</em></p>
+    <p><strong>Not just collecting ideas</strong> — but actively helping innovators test, refine, and launch them.</p>
+    </div>
+    <section id="How">
+      <h2>⚙️ How AfriFoundry Works</h2>
+    <p>A clear path, from idea to impact:</p>
+    <ol>
+      <li><strong>Submit:</strong> Share your idea or a real‑world problem you see around you.</li>
+      <li><strong>Refine:</strong> Use our AI Copilot and mentor feedback to sharpen your concept, discover gaps, and plan next steps.</li>
+      <li><strong>Validate in cohorts:</strong> Test your idea in guided groups, get real feedback, and run ethical checks to ensure it truly helps.</li>
+      <li><strong>Connect & scale:</strong> Showcase your validated idea on our Discover feed, join partner programs, and explore funding opportunities.</li>
+    </ol>
+    <p>Don’t let your idea stay on paper — build, test, and share it with the world.</p>
+    </section>
+    <section>
+       <h2>🧭 Innovation Journeys</h2>
+    <p>AfriFoundry supports multiple entry points, so anyone, anywhere, can begin:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Entry Point</th>
+          <th>What it means</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>✅ Problem submission</td><td>Share a real challenge you’ve witnessed in your community</td></tr>
+        <tr><td>✅ Idea submission</td><td>Upload your solution, even if it’s early-stage</td></tr>
+        <tr><td>✅ AI-suggested themes</td><td>Explore prompts generated by our AI Copilot</td></tr>
+        <tr><td>✅ Hackathon funnel</td><td>Keep building and testing your hackathon project</td></tr>
+        <tr><td>✅ Partner-led projects</td><td>Join real challenges brought by institutions & NGOs</td></tr>
+        <tr><td>✅ Local adaptation</td><td>Adapt successful solutions from other regions to your local context</td></tr>
+      </tbody>
+    </table>
+    <p>Wherever your idea begins, AfriFoundry helps guide it toward real validation and scale.</p>
+    </section>
+    <section style="background-color:#fff0e1;" id="Join">
+        <h2>📣 Join the Movement</h2>
+    <p>Africa doesn’t lack ideas — it needs better ways to test, refine, and bring them to life.</p>
+    <p>Are you ready to turn your idea into real-world impact?</p>
+    <a href="#" class="btn">Join AfriFoundry</a>
+    <a href="#" class="btn">Sign Up for Early Access</a>
+    </section>
+    <section id="About">
+       <h2>👤 About Us</h2>
+    <h3>Mission</h3>
+    <p>Forge Africa’s grassroots creativity into validated, scalable, real‑world solutions.</p>
+    <h3>Vision</h3>
+    <p>An Africa where innovators move from idea → cohort → tested solution → scaled impact — ethically, locally, collaboratively.
+
+Beyond public submissions, after launch our internal research team will also discover unmet gaps and build in‑house validation projects for cohorts & partners.</p>
+    <h3>Founder Story</h3>
+    <p>“As a biomedical engineering student, I watched brilliant classmates design affordable health devices and digital tools — but most never reached real patients. AfriFoundry was built to close that gap: adding ethical validation, AI refinement and partner pathways so African ideas move from proposal → pilot → proven impact.”</p>
+    <h3>🧠 Executive Team</h3>
+    <table>
+      <thead>
+        <tr><th>Name</th><th>Role</th><th>Short bio</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Mark Gakuya</td><td>CEO & Founder</td><td>Leads vision & partnerships; started AfriFoundry to bridge Africa’s innovation gap</td></tr>
+        <tr><td>Fredrick Ondara</td><td>CTO</td><td>Heads technical architecture, AI Copilot & platform backend</td></tr>
+        <tr><td>Karani Njoroge</td><td>COO</td><td>Builds validation systems, manages cohorts & partner operations</td></tr>
+        <tr><td>Yusra Mohamed</td><td>CPGIO</td><td>Drives program growth, partnerships & the innovator journey</td></tr>
+      </tbody>
+    </table>
+    </section>
+
+     <section style="background-color: paleturquoise;" id="Discover">
+       
+     <h2>What Makes Us Different</h2>
+         <ol>
+       <li> ✅ Ethics‑first validation: built‑in checklists & scorecards help teams build trust.</li>
+        <li>🤖 AI Copilot: reframes problems, drafts research summaries & helps refine ideas.</li>
+        <li>📊 Knowledge reuse: adapt proven African solutions rather than always starting from zero.</li>
+        <li> 🤝 Partner pilots: universities, NGOs & hubs help field‑test solutions.</li>
+          <li>🧩 Internal research track: after launch, we proactively find gaps and build pilot projects.</li>
+        </ol><br>
+        <p style="font-size: 28px; color: black;">So even early‑stage ideas can get real‑world testing, mentorship & a clearer path to impact.</p>
+
+            
+     </section>
+
+
+
+
+
+    <section id="Contact">
+       <h2>📬Contact</h2>
+    <p>We’d love to hear from you — whether you’re an innovator, partner, or just curious.</p>
+    <form>
+      <input type="text" placeholder="Your Name" required />
+      <input type="email" placeholder="Your Email" required />
+      <textarea placeholder="Your Message" rows="5" required></textarea>
+      <button type="submit">Send Message</button>
+    </form>
+    <p style="color: palevioletred; font-size: 30px;">Follow us on:<br>
+        
+      <a href="https://www.linkedin.com/in/afrifoundry-hub-3a3472374?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"><img src="ya2.png">@AfriFoundry_linkedin_kenya</a><br>
+      <a href="https://whatsapp.com/channel/0029VbB1Yu07T8beQCLSJZ0I"><img src="ya1.png">@AfriFoundry_official-channel</a><br>
+      <a href="https://x.com/AfriFoundry?t=7EPomx6pVDjHtavcBeWXEQ&s=09"><img src="ya4.png">@AfriFoundry_Twitter_kenya</a><br>
+        
+        </p>
+
+
+        <p>Phone No;+254729606960,+254703589175,+25400533136,+254711326997<br>
+               </p>
+    </section>
+    <footer>
+          <p>Built with Purpose. Powered by Africa.</p>
+          <p>©2025 AfriFoundry. All rights reserved.</p>
+         <p>Links: Home | About | Contact | Privacy</p>
+    
+    </footer>
+  </div>
+  <script>
+    function toggleMenu() {
+      const menu = document.getElementById('sideMenu');
+      menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+    }
+    const slides = document.querySelectorAll('.slide');
+    const texts = document.querySelectorAll('.slideshow-text');
+    let index = 0;
+    function showNextSlide() {
+      slides[index].classList.remove('active');
+      texts[index].classList.remove('active');
+      index = (index + 1) % slides.length;
+      slides[index].classList.add('active');
+      texts[index].classList.add('active');
+    }
+    setInterval(showNextSlide, 5000);
+  </script>
+</body>
+</html>
